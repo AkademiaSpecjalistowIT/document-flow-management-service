@@ -13,4 +13,5 @@ import java.util.UUID;
 public class DocumentDto {
     private UUID documentId;
     private Date creationDate;
+    private byte[] file;
 }
