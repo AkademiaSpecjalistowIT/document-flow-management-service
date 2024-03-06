@@ -2,8 +2,7 @@ package pl.akademiaspecjalistowit.DocumentFlowManagementService.document.util;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class PDFValidator {
     public static boolean isPDF(byte[] data) {
@@ -21,5 +20,24 @@ public class PDFValidator {
             return true;
         }
         return false;
+    }
+    public static byte[] loadPDFFile(String filename) {
+        try (InputStream inputStream = PDFValidator.class.getClassLoader().getResourceAsStream(filename);
+             ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            if (inputStream == null) {
+                throw new FileNotFoundException("Plik PDF nie został znaleziony: " + filename);
+            }
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            return outputStream.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
