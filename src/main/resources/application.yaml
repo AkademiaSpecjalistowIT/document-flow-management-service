@@ -7,4 +7,6 @@ spring:
   liquibase:
 #    change-log: classpath:/db/changelog/db.changelog-master.yaml
     enabled:  false
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
 
