@@ -10,10 +10,10 @@ import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.service.
 import java.util.List;
 
 @RestController
-@RequestMapping("/document")
+@RequestMapping("/api/documents")
 @AllArgsConstructor
-public class DocumentController {
-    private DocumentService documentService;
+class DocumentController {
+    private final DocumentService documentService;
 
     @GetMapping("/all")
     public List<DocumentDto> getDocuments(){

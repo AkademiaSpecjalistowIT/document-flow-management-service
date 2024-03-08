@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class DocumentServiceImpl implements DocumentService{
-    private DocumentDataService documentDataService;
+    private final DocumentDataService documentDataService;
     @Override
     public List<DocumentDto> getAllDocuments() {
         return documentDataService.getAllDocuments()

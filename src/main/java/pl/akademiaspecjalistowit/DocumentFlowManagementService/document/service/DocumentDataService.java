@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class DocumentDataService {
-    private DocumentRepository documentRepository;
+    private final DocumentRepository documentRepository;
 
     public List<DocumentEntity> getAllDocuments(){
         return documentRepository.findAll();
