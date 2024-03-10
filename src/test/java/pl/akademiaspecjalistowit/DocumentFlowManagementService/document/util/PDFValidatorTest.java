@@ -1,29 +1,52 @@
 package pl.akademiaspecjalistowit.DocumentFlowManagementService.document.util;
 
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PDFValidatorTest {
-
     @Test
-    void testIsPDF() {
-
-        byte[] pdfData = PDFValidator.loadPDFFile("test.pdf");
-
-        assertTrue(PDFValidator.isPDF(pdfData), "Metoda isPDF powinna zwrócić true dla prawidłowego pliku PDF");
-
-        assertFalse(PDFValidator.isPDF(new byte[0]), "Metoda isPDF powinna zwrócić false dla pustych danych");
+    void should_be_a_PDF_file() {
+        MultipartFile givenFile = preparedTestPdfFile();
+        assertTrue(PDFValidator.isPDF(givenFile));
     }
 
     @Test
-    void testIsAllowedSize() {
-        byte[] smallFile = new byte[10 * 1024]; // Plik o rozmiarze 10 KB
-        byte[] largeFile = new byte[25 * 1024 * 1024]; // Plik o rozmiarze 25 MB
-
-        assertTrue(PDFValidator.isAllowedSize(smallFile), "Metoda isAllowedSize powinna zwrócić true dla małego pliku");
-
-
-        assertFalse(PDFValidator.isAllowedSize(largeFile), "Metoda isAllowedSize powinna zwrócić false dla dużego pliku");
+    void should_throw_exception_for_non_pdf_file() {
+        MultipartFile file = preparedTestNotPdfFile();
+        Executable executable = () -> PDFValidator.isPDF(file);
+        assertThrows(RuntimeException.class, executable);
     }
+
+
+    MultipartFile preparedTestPdfFile() {
+        byte[] testFileContent = getTestFileContent("testFile_isPdf.pdf");
+        return new MockMultipartFile("file", "testFile_isPdf.pdf",
+                "application/pdf", testFileContent);
+    }
+
+    MultipartFile preparedTestNotPdfFile() {
+        byte[] testFileContent = getTestFileContent("testFile_notPDF.txt");
+        return new MockMultipartFile("file", "testFile_notPDF.txt",
+                "application/plain", testFileContent);
+    }
+
+
+    private static byte[] getTestFileContent(String fileName) {
+        try {
+            return Files.readAllBytes(Path.of("src/test/resources/" + fileName));
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
 }

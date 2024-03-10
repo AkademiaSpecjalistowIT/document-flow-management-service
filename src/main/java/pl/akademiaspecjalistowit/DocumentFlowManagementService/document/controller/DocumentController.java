@@ -1,23 +1,28 @@
 package pl.akademiaspecjalistowit.DocumentFlowManagementService.document.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentDto;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.service.DocumentService;
+import org.springframework.web.multipart.MultipartFile;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.service.DocumentServiceImpl;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/documents")
 @AllArgsConstructor
-public class DocumentController {
+class DocumentController {
 
-    private final DocumentService documentService;
+    private final DocumentServiceImpl documentServiceImpl;
 
-    @PostMapping
-    void saveDocument(@RequestBody DocumentDto documentDto){
-        documentService.saveDocument(documentDto);
+    @PostMapping("/upload")
+    ResponseEntity<UUID> uploadDocument(@RequestParam("file") MultipartFile file){
+        UUID savedDocumentId = documentServiceImpl.saveDocument(file);
+       return ResponseEntity.status(HttpStatus.CREATED).body(savedDocumentId);
     }
 
 }

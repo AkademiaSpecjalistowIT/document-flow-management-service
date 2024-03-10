@@ -3,5 +3,5 @@ package pl.akademiaspecjalistowit.DocumentFlowManagementService.document.reposit
 import org.springframework.data.jpa.repository.JpaRepository;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEntity;
 
-public interface DocumentRepository extends JpaRepository<DocumentEntity, Long> {
+public interface  DocumentRepository extends JpaRepository<DocumentEntity, Long> {
 }

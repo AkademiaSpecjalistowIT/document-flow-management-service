@@ -1,43 +1,18 @@
 package pl.akademiaspecjalistowit.DocumentFlowManagementService.document.util;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
-
+@Component
 public class PDFValidator {
-    public static boolean isPDF(byte[] data) {
-        try (ByteArrayInputStream bis = new ByteArrayInputStream(data)) {
-            PDDocument.load(bis);
+
+    public static boolean isPDF(MultipartFile file) {
+        String fileContentType = file.getContentType();
+        String requiredFileFormat = "application/pdf";
+        if (!requiredFileFormat.equals(fileContentType)) {
+            throw new RuntimeException("Only PDF files are allowed.");
+        } else {
             return true;
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
-    public static boolean isAllowedSize(byte[] data) {
-        double fileSizeInMegabytes = (double) data.length / (1024 * 1024);
-        if (fileSizeInMegabytes <= 20) {
-            return true;
-        }
-        return false;
-    }
-    public static byte[] loadPDFFile(String filename) {
-        try (InputStream inputStream = PDFValidator.class.getClassLoader().getResourceAsStream(filename);
-             ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            if (inputStream == null) {
-                throw new FileNotFoundException("Plik PDF nie został znaleziony: " + filename);
-            }
-
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-
-            return outputStream.toByteArray();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
         }
     }
 }
