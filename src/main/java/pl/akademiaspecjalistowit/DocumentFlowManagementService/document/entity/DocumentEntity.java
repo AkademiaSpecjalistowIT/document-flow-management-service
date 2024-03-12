@@ -25,5 +25,11 @@ public class DocumentEntity {
 
     @Lob
     private byte[] file;
+
+    public DocumentEntity(byte[] file) {
+        this.documentId = UUID.randomUUID();
+        this.creationDate = new Date();
+        this.file = file;
+    }
 }
 

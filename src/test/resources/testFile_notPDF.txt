@@ -1,0 +1,20 @@
+{
+  "receiver": {
+    "address": {
+      "city": "string",
+      "postalCode": "string",
+      "addressLine": "string"
+    },
+    "phoneNumber": "string",
+    "email": "string"
+  },
+  "sender": {
+    "address": {
+      "city": "string",
+      "postalCode": "string",
+      "addressLine": "string"
+    },
+    "phoneNumber": "string",
+    "email": "string"
+  }
+}
