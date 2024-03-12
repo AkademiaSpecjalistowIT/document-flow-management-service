@@ -23,7 +23,7 @@ class DocumentController {
         return documentService.getAllDocuments();
     }
 
-    @PostMapping(name = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<UUID> uploadDocument(@RequestParam("file") MultipartFile file){
         UUID savedDocumentId = documentService.saveDocument(file);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedDocumentId);

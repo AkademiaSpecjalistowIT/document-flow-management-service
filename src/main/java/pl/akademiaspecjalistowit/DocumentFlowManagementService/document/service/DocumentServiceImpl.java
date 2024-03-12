@@ -32,10 +32,10 @@ class DocumentServiceImpl implements DocumentService {
     @Override
     @Transactional
     public UUID saveDocument(MultipartFile fileRequest) {
-        validateDocument(fileRequest);
-        DocumentEntity documentEntity = generateDocumentEntity(fileRequest);
-        documentDataService.saveDocument(documentEntity);
-        return documentEntity.getDocumentId();
+            validateDocument(fileRequest);
+            DocumentEntity documentEntity = generateDocumentEntity(fileRequest);
+            documentDataService.saveDocument(documentEntity);
+            return documentEntity.getDocumentId();
     }
 
     private DocumentEntity generateDocumentEntity(MultipartFile file) {
@@ -43,15 +43,15 @@ class DocumentServiceImpl implements DocumentService {
         Date date = new Date();
         try {
             byte[] docFile = file.getBytes();
-            return new DocumentEntity(null, documentId, date, docFile);
+            return new DocumentEntity(docFile);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error processing document file", e);
         }
     }
 
     private void validateDocument(MultipartFile file) {
         if (!isPDF(file)) {
-            throw new RuntimeException("File must be a PDF");
+            throw new RuntimeException("Unsupported file type, only PDF files are allowed");
         }
     }
 }
