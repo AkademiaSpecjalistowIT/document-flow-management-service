@@ -11,4 +11,6 @@ public interface DocumentService {
     List<DocumentDto> getAllDocuments();
 
     UUID saveDocument(MultipartFile fileRequest);
+
+    byte[] getDocument(UUID documentId);
 }

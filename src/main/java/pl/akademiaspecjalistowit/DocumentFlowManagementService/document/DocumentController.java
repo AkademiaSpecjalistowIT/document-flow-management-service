@@ -28,4 +28,10 @@ class DocumentController {
         UUID savedDocumentId = documentService.saveDocument(file);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedDocumentId);
     }
+
+    @GetMapping("/{documentId}")
+    public ResponseEntity<byte[]> downloadDocument(@PathVariable UUID documentId){
+        byte[] document = documentService.getDocument(documentId);
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(document);
+    }
 }

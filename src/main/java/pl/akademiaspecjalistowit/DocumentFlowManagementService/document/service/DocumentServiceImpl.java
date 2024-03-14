@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentDto;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEntity;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentNotFoundException;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.mapper.DocumentMapper;
 
 import java.io.IOException;
@@ -27,6 +28,12 @@ class DocumentServiceImpl implements DocumentService {
                 .stream()
                 .map(DocumentMapper::dtoFromEntity)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public byte[] getDocument(UUID documentId) {
+        DocumentEntity document = documentDataService.getDocument(documentId).orElseThrow(DocumentNotFoundException::new);
+        return document.getFile();
     }
 
     @Override
