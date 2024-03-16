@@ -31,8 +31,10 @@ class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public byte[] getDocument(UUID documentId) {
-        DocumentEntity document = documentDataService.getDocument(documentId).orElseThrow(DocumentNotFoundException::new);
+    public byte[] downloadDocument(UUID documentId) {
+        DocumentEntity document = documentDataService.getDocument(documentId).orElseThrow(
+                () -> new DocumentNotFoundException("Document with id %s not found".formatted(documentId))
+        );
         return document.getFile();
     }
 

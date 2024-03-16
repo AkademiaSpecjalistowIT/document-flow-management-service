@@ -12,5 +12,5 @@ public interface DocumentService {
 
     UUID saveDocument(MultipartFile fileRequest);
 
-    byte[] getDocument(UUID documentId);
+    byte[] downloadDocument(UUID documentId);
 }

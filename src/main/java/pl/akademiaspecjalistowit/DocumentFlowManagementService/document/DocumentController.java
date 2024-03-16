@@ -29,7 +29,7 @@ class DocumentController {
 
     @GetMapping("/{documentId}")
     public ResponseEntity<byte[]> downloadDocument(@PathVariable UUID documentId){
-        byte[] document = documentService.getDocument(documentId);
+        byte[] document = documentService.downloadDocument(documentId);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
         //todo: po zaktualizowaniu pól DocumentEntity przypisać poprawną nazwę pobieranego pliku

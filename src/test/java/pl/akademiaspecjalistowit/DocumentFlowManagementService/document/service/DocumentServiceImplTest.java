@@ -13,8 +13,7 @@ import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exceptio
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -55,7 +54,8 @@ class DocumentServiceImplTest {
         UUID documentId = UUID.randomUUID();
         when(documentDataService.getDocument(documentId)).thenReturn(Optional.empty());
         //when && then
-        assertThrows(DocumentNotFoundException.class, () -> documentService.getDocument(documentId));
+        DocumentNotFoundException exception = assertThrows(DocumentNotFoundException.class, () -> documentService.downloadDocument(documentId));
+        assertEquals("Document with id %s not found".formatted(documentId), exception.getMessage());
     }
 
 }
