@@ -1,9 +1,7 @@
 package pl.akademiaspecjalistowit.DocumentFlowManagementService.document;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentDto;
@@ -27,5 +25,15 @@ class DocumentController {
     ResponseEntity<UUID> uploadDocument(@RequestParam("file") MultipartFile file){
         UUID savedDocumentId = documentService.saveDocument(file);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedDocumentId);
+    }
+
+    @GetMapping("/{documentId}")
+    public ResponseEntity<byte[]> downloadDocument(@PathVariable UUID documentId){
+        byte[] document = documentService.downloadDocument(documentId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        //todo: po zaktualizowaniu pól DocumentEntity przypisać poprawną nazwę pobieranego pliku
+        headers.setContentDisposition(ContentDisposition.builder("attachment").filename("document.pdf").build());
+        return ResponseEntity.ok().headers(headers).body(document);
     }
 }
