@@ -1,14 +1,10 @@
 package pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exceptionHandler;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exceptionHandler.exception.DocumentNotFoundException;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exceptionHandler.exception.DocumentProcessingException;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exceptionHandler.exception.DocumentValidationException;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.*;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.response.ErrorInfoResponse;
 
 import java.time.LocalDateTime;
 
@@ -35,8 +31,6 @@ public class DocumentExceptionHandler {
     @ExceptionHandler(DocumentValidationException.class)
     public ResponseEntity<ErrorInfoResponse> handleDocumentValidationException(DocumentValidationException e,
                                                                                HttpServletRequest request) {
-        ErrorInfoResponse error = new ErrorInfoResponse(LocalDateTime.now(),
-                "Invalid document: " + e.getMessage(), request.getRequestURL().toString());
         return buildResponseEntity(HttpStatus.UNSUPPORTED_MEDIA_TYPE,
                 "Invalid document: " + e.getMessage(),
                 request);
