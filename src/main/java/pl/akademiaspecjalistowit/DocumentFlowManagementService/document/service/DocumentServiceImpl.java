@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentDto;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEntity;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentNotFoundException;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentValidationException;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.mapper.DocumentMapper;
 
 import java.io.IOException;
@@ -33,7 +34,7 @@ class DocumentServiceImpl implements DocumentService {
     @Override
     public byte[] downloadDocument(UUID documentId) {
         DocumentEntity document = documentDataService.getDocument(documentId).orElseThrow(
-                () -> new DocumentNotFoundException("Document with id %s not found".formatted(documentId))
+                () -> new DocumentNotFoundException(documentId.toString())
         );
         return document.getFile();
     }
@@ -60,7 +61,7 @@ class DocumentServiceImpl implements DocumentService {
 
     private void validateDocument(MultipartFile file) {
         if (!isPDF(file)) {
-            throw new RuntimeException("Unsupported file type, only PDF files are allowed");
+            throw new DocumentValidationException("Only a PDF files are allowed");
         }
     }
 }
