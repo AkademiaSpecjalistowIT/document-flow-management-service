@@ -61,7 +61,7 @@ class DocumentServiceImpl implements DocumentService {
 
     private void validateDocument(MultipartFile file) {
         if (!isPDF(file)) {
-            throw new DocumentValidationException("Only a PDF file are allowed");
+            throw new DocumentValidationException("Only a PDF files are allowed");
         }
     }
 }
