@@ -8,7 +8,10 @@ public class DocumentMapper {
     public static DocumentDto dtoFromEntity(DocumentEntity document){
         return new DocumentDto(
                 document.getDocumentId(),
-                document.getCreationDate()
+                document.getCreationDate(),
+                document.getFileName(),
+                document.getDescription(),
+                document.getState()
         );
     }
 

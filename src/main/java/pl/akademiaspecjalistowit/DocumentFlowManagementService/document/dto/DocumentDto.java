@@ -1,6 +1,7 @@
 package pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto;
 
 import lombok.*;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.model.DocumentState;
 
 import java.util.Date;
 import java.util.UUID;
@@ -13,4 +14,7 @@ import java.util.UUID;
 public class DocumentDto {
     private UUID documentId;
     private Date creationDate;
+    private String fileName;
+    private String description;
+    private DocumentState state;
 }
