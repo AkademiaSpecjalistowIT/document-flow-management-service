@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentDto;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DownloadDocumentDto;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentResponse;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEntity;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentNotFoundException;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentValidationException;
@@ -25,7 +25,7 @@ class DocumentServiceImpl implements DocumentService {
     private final DocumentDataService documentDataService;
 
     @Override
-    public List<DocumentDto> getAllDocuments() {
+    public List<DocumentResponse> getAllDocuments() {
         return documentDataService.getAllDocuments()
                 .stream()
                 .map(DocumentMapper::dtoFromEntity)

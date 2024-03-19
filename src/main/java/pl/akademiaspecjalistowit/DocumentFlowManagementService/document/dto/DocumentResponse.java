@@ -11,10 +11,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode
-public class DocumentDto {
+public class DocumentResponse {
     private UUID documentId;
     private Date creationDate;
     private String fileName;
     private String description;
+    private String documentType;
+    private Date deadline;
     private DocumentState state;
 }
