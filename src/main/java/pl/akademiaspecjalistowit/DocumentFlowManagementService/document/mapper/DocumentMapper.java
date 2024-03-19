@@ -11,6 +11,8 @@ public class DocumentMapper {
                 document.getCreationDate(),
                 document.getFileName(),
                 document.getDescription(),
+                document.getDocumentType(),
+                document.getDeadline(),
                 document.getState()
         );
     }
