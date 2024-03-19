@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.model.DocumentState;
 
 import java.util.Date;
 import java.util.UUID;
@@ -25,6 +26,12 @@ public class DocumentEntity {
 
     @Lob
     private byte[] file;
+
+    private String fileName;
+
+    private String description;
+
+    private DocumentState state;
 
     public DocumentEntity(byte[] file) {
         this.documentId = UUID.randomUUID();
