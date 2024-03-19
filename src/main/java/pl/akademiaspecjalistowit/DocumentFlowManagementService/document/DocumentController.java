@@ -5,6 +5,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentDto;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DownloadDocumentDto;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.service.DocumentService;
 
 import java.util.List;
@@ -29,11 +30,10 @@ class DocumentController {
 
     @GetMapping("/{documentId}")
     public ResponseEntity<byte[]> downloadDocument(@PathVariable UUID documentId){
-        byte[] document = documentService.downloadDocument(documentId);
+        DownloadDocumentDto document = documentService.downloadDocument(documentId);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
-        //todo: po zaktualizowaniu pól DocumentEntity przypisać poprawną nazwę pobieranego pliku
-        headers.setContentDisposition(ContentDisposition.builder("attachment").filename("document.pdf").build());
-        return ResponseEntity.ok().headers(headers).body(document);
+        headers.setContentDisposition(ContentDisposition.builder("attachment").filename(document.getFileName()).build());
+        return ResponseEntity.ok().headers(headers).body(document.getFile());
     }
 }

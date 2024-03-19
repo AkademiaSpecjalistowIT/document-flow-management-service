@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentDto;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DownloadDocumentDto;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEntity;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentNotFoundException;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentValidationException;
@@ -32,11 +33,11 @@ class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public byte[] downloadDocument(UUID documentId) {
+    public DownloadDocumentDto downloadDocument(UUID documentId) {
         DocumentEntity document = documentDataService.getDocument(documentId).orElseThrow(
                 () -> new DocumentNotFoundException(documentId.toString())
         );
-        return document.getFile();
+        return DocumentMapper.downloadDtoFromEntity(document);
     }
 
     @Override

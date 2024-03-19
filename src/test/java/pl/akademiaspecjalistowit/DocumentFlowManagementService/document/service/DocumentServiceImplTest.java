@@ -7,10 +7,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.multipart.MultipartFile;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.TestData;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DownloadDocumentDto;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEntity;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentNotFoundException;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentValidationException;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.model.DocumentState;
 
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -50,7 +53,7 @@ class DocumentServiceImplTest {
     }
 
     @Test
-    void unhappyPath_getDocument_shouldThrowNotFound(){
+    void unhappyPath_downloadDocument_shouldThrowNotFound(){
         //given
         UUID documentId = UUID.randomUUID();
         when(documentDataService.getDocument(documentId)).thenReturn(Optional.empty());
@@ -59,4 +62,32 @@ class DocumentServiceImplTest {
         assertEquals(documentId.toString(), exception.getMessage());
     }
 
+    @Test
+    void happyPath_downloadDocument_shouldReturnDownloadDocumentDto(){
+        //given
+        UUID documentId = UUID.randomUUID();
+        DocumentEntity documentEntity = prepareValidDocumentEntity(documentId);
+        when(documentDataService.getDocument(documentId)).thenReturn(Optional.of(documentEntity));
+        //when
+        DownloadDocumentDto downloadDocumentDto = documentService.downloadDocument(documentId);
+        //then
+        verifyDownloadDocumentDto(downloadDocumentDto, documentEntity);
+    }
+
+    private void verifyDownloadDocumentDto(DownloadDocumentDto downloadDocumentDto, DocumentEntity documentEntity){
+        assertEquals(downloadDocumentDto.getFile(), documentEntity.getFile());
+        assertEquals(downloadDocumentDto.getFileName(), documentEntity.getFileName());
+    }
+
+    private DocumentEntity prepareValidDocumentEntity(UUID documentId){
+        return new DocumentEntity(
+                1L,
+                documentId,
+                new Date(),
+                TestData.preparedValidFileForTestDocumentEntity(),
+                "TestFileName",
+                "TestDescription",
+                DocumentState.PROCESSING
+        );
+    }
 }

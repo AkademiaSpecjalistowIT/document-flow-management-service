@@ -20,6 +20,10 @@ public class TestData {
                 "application/plain", testFileContent);
     }
 
+    public static byte[] preparedValidFileForTestDocumentEntity(){
+        return getTestFileContent("testFile_isPdf.pdf");
+    }
+
     private static byte[] getTestFileContent(String fileName) {
         try {
             return Files.readAllBytes(Path.of("src/test/resources/" + fileName));
