@@ -31,6 +31,10 @@ public class DocumentEntity {
 
     private String description;
 
+    private String documentType;
+
+    private Date deadline;
+
     private DocumentState state;
 
     public DocumentEntity(byte[] file) {
