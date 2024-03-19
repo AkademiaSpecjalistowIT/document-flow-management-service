@@ -13,6 +13,7 @@ import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exceptio
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentValidationException;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.model.DocumentState;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
@@ -87,6 +88,8 @@ class DocumentServiceImplTest {
                 TestData.preparedValidFileForTestDocumentEntity(),
                 "TestFileName",
                 "TestDescription",
+                "TestDocumentType",
+                new Date(2030, Calendar.JUNE,10),
                 DocumentState.PROCESSING
         );
     }
