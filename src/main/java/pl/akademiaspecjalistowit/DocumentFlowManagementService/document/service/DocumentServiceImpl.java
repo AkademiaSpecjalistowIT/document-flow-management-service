@@ -16,6 +16,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEntity.createNewDocument;
+import static pl.akademiaspecjalistowit.DocumentFlowManagementService.document.mapper.DocumentMapper.dtoFromEntity;
 
 @Service
 @AllArgsConstructor
@@ -44,7 +45,9 @@ class DocumentServiceImpl implements DocumentService {
         try {
             DocumentEntity documentEntity = createNewDocument(input.getFile(), input.getFileName(),
                     input.getDescription(), input.getDocumentType(), input.getDeadline());
-            return documentEntity.getDocumentId();
+            documentDataService.saveDocument(documentEntity);
+            DocumentResponse documentDTO = dtoFromEntity(documentEntity);
+            return documentDTO.getDocumentId();
         } catch (IOException e) {
             throw new DocumentProcessingException();
         }
