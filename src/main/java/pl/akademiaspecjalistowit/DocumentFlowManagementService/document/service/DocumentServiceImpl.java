@@ -3,6 +3,7 @@ package pl.akademiaspecjalistowit.DocumentFlowManagementService.document.service
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DownloadDocumentDto;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentCreationInput;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentResponse;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEntity;
@@ -31,11 +32,11 @@ class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public byte[] downloadDocument(UUID documentId) {
+    public DownloadDocumentDto downloadDocument(UUID documentId) {
         DocumentEntity document = documentDataService.getDocument(documentId).orElseThrow(
                 () -> new DocumentNotFoundException(documentId.toString())
         );
-        return document.getFile();
+        return DocumentMapper.downloadDtoFromEntity(document);
     }
 
     @Override

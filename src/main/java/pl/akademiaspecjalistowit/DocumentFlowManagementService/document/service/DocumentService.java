@@ -1,5 +1,6 @@
 package pl.akademiaspecjalistowit.DocumentFlowManagementService.document.service;
 
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DownloadDocumentDto;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentCreationInput;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentResponse;
 
@@ -12,5 +13,5 @@ public interface DocumentService {
 
     UUID saveDocument(DocumentCreationInput input);
 
-    byte[] downloadDocument(UUID documentId);
+    DownloadDocumentDto downloadDocument(UUID documentId);
 }

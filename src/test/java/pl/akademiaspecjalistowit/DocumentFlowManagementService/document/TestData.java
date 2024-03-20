@@ -2,6 +2,8 @@ package pl.akademiaspecjalistowit.DocumentFlowManagementService.document;
 
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEntity;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.model.DocumentState;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentCreationInput;
 
 import java.io.IOException;
@@ -9,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
+
 
 public class TestData {
     public static MultipartFile preparedTestPdfFileForUpload() {
@@ -23,6 +27,23 @@ public class TestData {
                 "application/plain", testFileContent);
     }
 
+    public static byte[] preparedValidFileForTestDocumentEntity(){
+        return getTestFileContent("testFile_isPdf.pdf");
+    }
+
+    public static DocumentEntity prepareValidDocumentEntity(UUID documentId){
+        return new DocumentEntity(
+                1L,
+                documentId,
+                new Date(),
+                TestData.preparedValidFileForTestDocumentEntity(),
+                "TestFileName",
+                "TestDescription",
+                "TestDocumentType",
+                new Date(2030, Calendar.JUNE,10),
+                DocumentState.PROCESSING
+        );
+    }
     public static DocumentCreationInput preparedTestDocumentCreationInput(){
         return new DocumentCreationInput("testFile_isPdf",
                 "Test description",
