@@ -1,6 +1,6 @@
 package pl.akademiaspecjalistowit.DocumentFlowManagementService.document.service;
 
-import org.springframework.web.multipart.MultipartFile;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentCreationInput;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentResponse;
 
 import java.util.List;
@@ -10,7 +10,7 @@ public interface DocumentService {
 
     List<DocumentResponse> getAllDocuments();
 
-    UUID saveDocument(MultipartFile fileRequest);
+    UUID saveDocument(DocumentCreationInput input);
 
     byte[] downloadDocument(UUID documentId);
 }
