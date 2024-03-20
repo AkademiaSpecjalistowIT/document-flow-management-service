@@ -5,6 +5,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DownloadDocumentDto;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentCreationInput;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentResponse;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.service.DocumentService;
 
@@ -22,9 +23,10 @@ class DocumentController {
         return documentService.getAllDocuments();
     }
 
-    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<UUID> uploadDocument(@RequestParam("file") MultipartFile file){
-        UUID savedDocumentId = documentService.saveDocument(file);
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<UUID> uploadDocument(@ModelAttribute DocumentCreationInput input){
+        UUID savedDocumentId = documentService.saveDocument(input);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedDocumentId);
     }
 

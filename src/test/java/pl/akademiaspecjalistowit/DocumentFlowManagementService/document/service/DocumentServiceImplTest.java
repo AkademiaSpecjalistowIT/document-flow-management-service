@@ -5,9 +5,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.multipart.MultipartFile;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.TestData;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DownloadDocumentDto;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentCreationInput;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEntity;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentNotFoundException;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentValidationException;
@@ -32,28 +32,30 @@ class DocumentServiceImplTest {
 
     @Test
     void happyPath_saveDocument_shouldSaveDocumentSuccessfully() {
-        //prepare mock file
-        MultipartFile givenFileRequest = TestData.preparedTestPdfFileForUpload();
 
-        //when:
-        UUID expectedResult = documentService.saveDocument(givenFileRequest);
+        //given
+        DocumentCreationInput input = TestData.preparedTestDocumentCreationInput();
 
-        //then:
+        // when
+        UUID expectedResult = documentService.saveDocument(input);
+
+        //then
         assertNotNull(expectedResult);
         verify(documentDataService).saveDocument(any(DocumentEntity.class));
     }
 
     @Test
     void unhappyPath_saveDocument_shouldNotSaveInvalidFile() {
-        ////prepare mock file
-        MultipartFile givenFileRequest = TestData.preparedTestNotPdfFileForUpload();
+        //given
+        DocumentCreationInput input = TestData.preparedTestDocumentCreationInputWithInvalidFile();
 
         //then:
-        assertThrows(DocumentValidationException.class, () -> documentService.saveDocument(givenFileRequest));
+        assertThrows(DocumentValidationException.class, () -> documentService.saveDocument(input));
         verify(documentDataService, never()).saveDocument(any(DocumentEntity.class));
     }
 
     @Test
+
     void unhappyPath_downloadDocument_shouldThrowNotFound(){
         //given
         UUID documentId = UUID.randomUUID();
@@ -81,3 +83,6 @@ class DocumentServiceImplTest {
     }
 
 }
+
+}
+
