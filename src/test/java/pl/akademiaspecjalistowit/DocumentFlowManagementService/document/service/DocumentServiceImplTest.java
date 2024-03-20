@@ -67,7 +67,7 @@ class DocumentServiceImplTest {
     void happyPath_downloadDocument_shouldReturnDownloadDocumentDto(){
         //given
         UUID documentId = UUID.randomUUID();
-        DocumentEntity documentEntity = prepareValidDocumentEntity(documentId);
+        DocumentEntity documentEntity = TestData.prepareValidDocumentEntity(documentId);
         when(documentDataService.getDocument(documentId)).thenReturn(Optional.of(documentEntity));
         //when
         DownloadDocumentDto downloadDocumentDto = documentService.downloadDocument(documentId);
@@ -80,17 +80,4 @@ class DocumentServiceImplTest {
         assertEquals(downloadDocumentDto.getFileName(), documentEntity.getFileName());
     }
 
-    private DocumentEntity prepareValidDocumentEntity(UUID documentId){
-        return new DocumentEntity(
-                1L,
-                documentId,
-                new Date(),
-                TestData.preparedValidFileForTestDocumentEntity(),
-                "TestFileName",
-                "TestDescription",
-                "TestDocumentType",
-                new Date(2030, Calendar.JUNE,10),
-                DocumentState.PROCESSING
-        );
-    }
 }
