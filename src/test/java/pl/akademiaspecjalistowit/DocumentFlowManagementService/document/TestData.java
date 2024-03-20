@@ -43,6 +43,7 @@ public class TestData {
                 new Date(2030, Calendar.JUNE,10),
                 DocumentState.PROCESSING
         );
+    }
     public static DocumentCreationInput preparedTestDocumentCreationInput(){
         return new DocumentCreationInput("testFile_isPdf",
                 "Test description",
