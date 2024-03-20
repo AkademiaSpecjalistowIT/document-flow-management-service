@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentCreationInput;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentValidationException;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.model.DocumentState;
 
