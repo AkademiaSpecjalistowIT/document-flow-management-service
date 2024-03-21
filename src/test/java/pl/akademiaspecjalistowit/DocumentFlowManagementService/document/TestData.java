@@ -2,15 +2,14 @@ package pl.akademiaspecjalistowit.DocumentFlowManagementService.document;
 
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentCreationInput;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEntity;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.model.DocumentState;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentCreationInput;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 
@@ -35,12 +34,12 @@ public class TestData {
         return new DocumentEntity(
                 1L,
                 documentId,
-                new Date(),
+                LocalDate.now(),
                 TestData.preparedValidFileForTestDocumentEntity(),
                 "TestFileName",
                 "TestDescription",
                 "TestDocumentType",
-                new Date(2030, Calendar.JUNE,10),
+                LocalDate.of(2030, 6, 10),
                 DocumentState.PROCESSING
         );
     }
@@ -48,14 +47,14 @@ public class TestData {
         return new DocumentCreationInput("testFile_isPdf",
                 "Test description",
                 "CV",
-                new Date(2024, Calendar.JUNE,10), preparedTestPdfFileForUpload());
+                LocalDate.of(2024, 6, 10), preparedTestPdfFileForUpload());
     }
 
     public static DocumentCreationInput preparedTestDocumentCreationInputWithInvalidFile(){
         return new DocumentCreationInput("testFile_notPDF",
                 "Test description",
                 "CV",
-                new Date(2024, Calendar.JUNE,10), preparedTestNotPdfFileForUpload());
+                LocalDate.of(2024, 6, 10), preparedTestNotPdfFileForUpload());
     }
 
     private static byte[] getTestFileContent(String fileName) {

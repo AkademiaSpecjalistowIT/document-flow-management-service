@@ -10,7 +10,8 @@ import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exceptio
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.model.DocumentState;
 
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDate;
+
 import java.util.UUID;
 
 @Entity
@@ -25,7 +26,7 @@ public class DocumentEntity {
 
     private UUID documentId;
 
-    private Date creationDate;
+    private LocalDate creationDate;
 
     @Lob
     private byte[] file;
@@ -36,7 +37,7 @@ public class DocumentEntity {
 
     private String documentType;
 
-    private Date deadline;
+    private LocalDate deadline;
 
     private DocumentState state;
 
@@ -45,9 +46,9 @@ public class DocumentEntity {
                           String fileName,
                           String description,
                           String documentType,
-                          Date deadline) {
+                          LocalDate deadline) {
         this.documentId = UUID.randomUUID();
-        this.creationDate = new Date();
+        this.creationDate = LocalDate.now();
         this.file = file;
         this.fileName = fileName;
         this.description = description;
@@ -60,7 +61,7 @@ public class DocumentEntity {
                                                    String fileName,
                                                    String description,
                                                    String documentType,
-                                                   Date deadline) throws IOException {
+                                                   LocalDate deadline) throws IOException {
         validateDocument(file);
         return new DocumentEntity(file.getBytes(), fileName, description, documentType, deadline);
 
