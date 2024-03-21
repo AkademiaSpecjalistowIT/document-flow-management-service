@@ -35,7 +35,7 @@ class DocumentController {
         DownloadDocumentDto document = documentService.downloadDocument(documentId);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
-        headers.setContentDisposition(ContentDisposition.builder("attachment").filename(document.getFileName()).build());
+        headers.setContentDisposition(ContentDisposition.builder("attachment").filename(document.getFileName() + ".pdf").build());
         return ResponseEntity.ok().headers(headers).body(document.getFile());
     }
 }
