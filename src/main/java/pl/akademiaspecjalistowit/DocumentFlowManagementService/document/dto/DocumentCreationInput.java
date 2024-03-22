@@ -1,11 +1,13 @@
 package pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto;
 
 import lombok.AccessLevel;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
@@ -15,6 +17,6 @@ public class DocumentCreationInput {
     private String description;
     private String documentType;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date deadline;
+    private LocalDate deadline;
     private MultipartFile file;
 }

@@ -3,7 +3,7 @@ package pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto;
 import lombok.*;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.model.DocumentState;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
@@ -13,10 +13,10 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class DocumentResponse {
     private UUID documentId;
-    private Date creationDate;
+    private LocalDate creationDate;
     private String fileName;
     private String description;
     private String documentType;
-    private Date deadline;
+    private LocalDate deadline;
     private DocumentState state;
 }
