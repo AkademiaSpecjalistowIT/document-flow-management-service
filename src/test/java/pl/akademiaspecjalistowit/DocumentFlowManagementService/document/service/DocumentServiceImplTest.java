@@ -52,7 +52,6 @@ class DocumentServiceImplTest {
     }
 
     @Test
-
     void unhappyPath_downloadDocument_shouldThrowNotFound(){
         //given
         UUID documentId = UUID.randomUUID();
@@ -66,7 +65,7 @@ class DocumentServiceImplTest {
     void happyPath_downloadDocument_shouldReturnDownloadDocumentDto(){
         //given
         UUID documentId = UUID.randomUUID();
-        DocumentEntity documentEntity = TestData.prepareValidDocumentEntity(documentId);
+        DocumentEntity documentEntity = TestData.preparedValidDocumentEntity(documentId);
         when(documentDataService.getDocument(documentId)).thenReturn(Optional.of(documentEntity));
         //when
         DownloadDocumentDto downloadDocumentDto = documentService.downloadDocument(documentId);
