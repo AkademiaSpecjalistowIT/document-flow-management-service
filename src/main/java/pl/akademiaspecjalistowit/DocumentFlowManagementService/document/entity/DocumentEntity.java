@@ -8,6 +8,7 @@ import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.model.Do
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,8 +38,9 @@ public class DocumentEntity {
     private LocalDate deadline;
 
     @OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DocumentEvent> events;
+    private List<DocumentEventEntity> events = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
     private DocumentState state;
 
 
@@ -82,7 +84,7 @@ public class DocumentEntity {
         return "application/pdf".equals(fileContentType);
     }
 
-    public void addEvent(DocumentEvent event) {
+    public void addEvent(DocumentEventEntity event) {
         events.add(event);
         event.assignDocumentToEvent(this);
     }

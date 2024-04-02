@@ -3,8 +3,9 @@ package pl.akademiaspecjalistowit.DocumentFlowManagementService.document;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentCreationInput;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.NewEventInput;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEntity;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEvent;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEventEntity;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.model.DocumentEventType;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.model.DocumentState;
 
@@ -35,7 +36,7 @@ public class TestData {
     }
 
     public static DocumentEntity preparedValidDocumentEntity(UUID documentId) {
-        List<DocumentEvent> events = new ArrayList<>();
+        List<DocumentEventEntity> events = new ArrayList<>();
         byte[] file = TestData.preparedValidFileForTestDocumentEntity();
         DocumentEntity document = new DocumentEntity(
                 1L,
@@ -49,7 +50,7 @@ public class TestData {
                 events,
                 DocumentState.CREATED
         );
-        DocumentEvent event = preparedDocumentEvent(document);
+        DocumentEventEntity event = preparedTestDocumentEvent(document);
         events.add(event);
         return document;
     }
@@ -76,14 +77,21 @@ public class TestData {
         }
     }
 
-    private static DocumentEvent preparedDocumentEvent(DocumentEntity document) {
-        return new DocumentEvent(
+    private static DocumentEventEntity preparedTestDocumentEvent(DocumentEntity document) {
+        return new DocumentEventEntity(
                 LocalDate.now(),
                 "username",
                 DocumentEventType.CREATED,
                 "Test reason",
                 "Test description",
                 document);
+    }
 
+    public static NewEventInput preparedTestNewEventInput(){
+        return new NewEventInput(LocalDate.now(),
+                "system",
+                DocumentEventType.CREATED,
+                "New document created",
+                "A new document has been uploaded to the system");
     }
 }

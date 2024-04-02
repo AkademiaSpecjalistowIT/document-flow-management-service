@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.TestData;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentCreationInput;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DownloadDocumentDto;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.NewEventInput;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEntity;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentNotFoundException;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentValidationException;
@@ -31,10 +32,11 @@ class DocumentServiceImplTest {
     void happyPath_saveDocument_shouldSaveDocumentSuccessfully() {
 
         //given
-        DocumentCreationInput input = TestData.preparedTestDocumentCreationInput();
+        DocumentCreationInput documentCreationInput = TestData.preparedTestDocumentCreationInput();
+        NewEventInput newEventInput = TestData.preparedTestNewEventInput();
 
         // when
-        UUID expectedResult = documentService.saveDocument(input);
+        UUID expectedResult = documentService.createDocument(documentCreationInput, newEventInput);
 
         //then
         assertNotNull(expectedResult);
@@ -44,10 +46,12 @@ class DocumentServiceImplTest {
     @Test
     void unhappyPath_saveDocument_shouldNotSaveInvalidFile() {
         //given
-        DocumentCreationInput input = TestData.preparedTestDocumentCreationInputWithInvalidFile();
+        DocumentCreationInput documentCreationInput = TestData.preparedTestDocumentCreationInputWithInvalidFile();
+        NewEventInput newEventInput = TestData.preparedTestNewEventInput();
 
         //then:
-        assertThrows(DocumentValidationException.class, () -> documentService.saveDocument(input));
+        assertThrows(DocumentValidationException.class,
+                () -> documentService.createDocument(documentCreationInput, newEventInput));
         verify(documentDataService, never()).saveDocument(any(DocumentEntity.class));
     }
 

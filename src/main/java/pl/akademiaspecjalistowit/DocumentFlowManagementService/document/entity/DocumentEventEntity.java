@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class DocumentEvent {
+public class DocumentEventEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,7 +17,7 @@ public class DocumentEvent {
     private LocalDate creationDate;
 
     private String issuer;
-
+    @Enumerated(EnumType.STRING)
     private DocumentEventType eventType;
 
     private String eventReason;
@@ -28,9 +28,9 @@ public class DocumentEvent {
     @JoinColumn(name = "document_id")
     private DocumentEntity document;
 
-    public DocumentEvent(LocalDate creationDate, String issuer,
-                         DocumentEventType eventType, String eventReason,
-                         String eventDescription, DocumentEntity document) {
+    public DocumentEventEntity(LocalDate creationDate, String issuer,
+                               DocumentEventType eventType, String eventReason,
+                               String eventDescription, DocumentEntity document) {
         this.creationDate = creationDate;
         this.issuer = issuer;
         this.eventType = eventType;
@@ -41,6 +41,12 @@ public class DocumentEvent {
         }
     }
 
+    public static DocumentEventEntity createEvent(String issuer,
+                                                  DocumentEventType eventType, String eventReason,
+                                                  String eventDescription, DocumentEntity document){
+        return new DocumentEventEntity(LocalDate.now(), issuer, eventType,eventReason, eventDescription, document);
+
+    }
     public void assignDocumentToEvent(DocumentEntity document) {
         this.document = document;
         if(document != null && !document.getEvents().contains(this)){
