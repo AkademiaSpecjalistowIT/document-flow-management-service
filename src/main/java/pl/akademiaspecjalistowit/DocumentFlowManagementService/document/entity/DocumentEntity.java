@@ -1,17 +1,15 @@
 package pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentValidationException;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.model.DocumentState;
 
 import java.io.IOException;
 import java.time.LocalDate;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -39,6 +37,10 @@ public class DocumentEntity {
 
     private LocalDate deadline;
 
+    @OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DocumentEventEntity> events = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
     private DocumentState state;
 
 
@@ -54,7 +56,7 @@ public class DocumentEntity {
         this.description = description;
         this.documentType = documentType;
         this.deadline = deadline;
-        this.state = DocumentState.ACCEPTED;
+        this.state = DocumentState.CREATED;
     }
 
     public static DocumentEntity createNewDocument(MultipartFile file,
@@ -63,7 +65,11 @@ public class DocumentEntity {
                                                    String documentType,
                                                    LocalDate deadline) throws IOException {
         validateDocument(file);
-        return new DocumentEntity(file.getBytes(), fileName, description, documentType, deadline);
+        return new DocumentEntity(file.getBytes(),
+                fileName,
+                description,
+                documentType,
+                deadline);
 
     }
 
@@ -76,6 +82,11 @@ public class DocumentEntity {
     private static boolean isPDF(MultipartFile file) {
         String fileContentType = file.getContentType();
         return "application/pdf".equals(fileContentType);
+    }
+
+    public void addEvent(DocumentEventEntity event) {
+        events.add(event);
+        event.assignDocumentToEvent(this);
     }
 }
 

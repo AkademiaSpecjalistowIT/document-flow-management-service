@@ -3,10 +3,12 @@ package pl.akademiaspecjalistowit.DocumentFlowManagementService.document.service
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DownloadDocumentDto;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentCreationInput;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DocumentResponse;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DownloadDocumentDto;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.NewEventInput;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEntity;
+import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEventEntity;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentNotFoundException;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentProcessingException;
 import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.mapper.DocumentMapper;
@@ -17,6 +19,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEntity.createNewDocument;
+import static pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEventEntity.createEvent;
 
 @Service
 @AllArgsConstructor
@@ -41,10 +44,19 @@ class DocumentServiceImpl implements DocumentService {
 
     @Override
     @Transactional
-    public UUID saveDocument(DocumentCreationInput input) {
+    public UUID createDocument(DocumentCreationInput documentInput, NewEventInput eventInput) {
         try {
-            DocumentEntity documentEntity = createNewDocument(input.getFile(), input.getFileName(),
-                    input.getDescription(), input.getDocumentType(), input.getDeadline());
+            DocumentEntity documentEntity = createNewDocument(documentInput.getFile(),
+                    documentInput.getFileName(),
+                    documentInput.getDescription(),
+                    documentInput.getDocumentType(),
+                    documentInput.getDeadline());
+            DocumentEventEntity event = createEvent(eventInput.getIssuer(),
+                    eventInput.getEventType(),
+                    eventInput.getEventReason(),
+                    eventInput.getEventDescription(),
+                    documentEntity);
+            documentEntity.addEvent(event);
             documentDataService.saveDocument(documentEntity);
             return documentEntity.getDocumentId();
         } catch (IOException e) {
