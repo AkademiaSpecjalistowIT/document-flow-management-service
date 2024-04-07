@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-event-table
+      author: Bartek
+      changes:
+        - createTable:
+            tableName: document_event
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: creation_date
+                  type: date
+              - column:
+                  name: issuer
+                  type: varchar(255)
+              - column:
+                  name: event_type
+                  type: varchar(255)
+              - column:
+                  name: event_reason
+                  type: varchar(255)
+              - column:
+                  name: event_description
+                  type: varchar(255)
+              - column:
+                  name: document_id
+                  type: bigint
+                  constraints:
+                    nullable: false

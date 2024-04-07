@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-constrains-to-document-and-document-event-tables
+      author: Bartek
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: document_event
+            baseColumnNames: document_id
+            constraintName: fk_document_event_document
+            referencedTableName: document
+            referencedColumnNames: id
+            onDelete: CASCADE

@@ -39,7 +39,9 @@ class DocumentServiceImpl implements DocumentService {
         DocumentEntity document = documentDataService.getDocument(documentId).orElseThrow(
                 () -> new DocumentNotFoundException(documentId.toString())
         );
-        return DocumentMapper.downloadDtoFromEntity(document);
+        DownloadDocumentDto DocumentDto = DocumentMapper.downloadDtoFromEntity(document);
+        DocumentDto.appendEventsToPDF(document.getEvents());
+        return DocumentDto;
     }
 
     @Override
