@@ -1,0 +1,165 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create-roles-and-authorities
+      author: Anastasiia Siutkina
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 1
+              - column:
+                  name: role_name
+                  value: "Director"
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 2
+              - column:
+                  name: role_name
+                  value: "CEO"
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 3
+              - column:
+                  name: role_name
+                  value: "Manager"
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 4
+              - column:
+                  name: role_name
+                  value: "Employee"
+        - insert:
+            tableName: authorities
+            columns:
+              - column:
+                  name: name
+                  value: "test"
+              - column:
+                  name: value
+                  value: "test"
+              - column:
+                  name: role_id
+                  valueNumeric: 1
+        - insert:
+            tableName: authorities
+            columns:
+              - column:
+                  name: name
+                  value: "test"
+              - column:
+                  name: value
+                  value: "test"
+              - column:
+                  name: role_id
+                  valueNumeric: 2
+        - insert:
+            tableName: authorities
+            columns:
+              - column:
+                  name: name
+                  value: "test"
+              - column:
+                  name: value
+                  value: "test"
+              - column:
+                  name: role_id
+                  valueNumeric: 3
+        - insert:
+            tableName: authorities
+            columns:
+              - column:
+                  name: name
+                  value: "test"
+              - column:
+                  name: value
+                  value: "test"
+              - column:
+                  name: role_id
+                  valueNumeric: 4
+  - changeSet:
+      id: 2-create-users
+      author: Anastasiia Siutkina
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: "jan.kowalski"
+              - column:
+                  name: name
+                  value: "Jan"
+              - column:
+                  name: surname
+                  value: "Kowalski"
+              - column:
+                  name: email
+                  value: "jan.kowalski@example.com"
+              - column:
+                  name: role_id
+                  valueNumeric: 1
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: "anna.pavlova"
+              - column:
+                  name: name
+                  value: "Anna"
+              - column:
+                  name: surname
+                  value: "Pavlova"
+              - column:
+                  name: email
+                  value: "anna.pavlova@example.com"
+              - column:
+                  name: role_id
+                  valueNumeric: 3
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: "mateusz.tur"
+              - column:
+                  name: name
+                  value: "Mateusz"
+              - column:
+                  name: surname
+                  value: "Tur"
+              - column:
+                  name: email
+                  value: "mateusz.tur@example.com"
+              - column:
+                  name: role_id
+                  valueNumeric: 2
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: "pawel.kaczmarek"
+              - column:
+                  name: name
+                  value: "Paweł"
+              - column:
+                  name: surname
+                  value: "Kaczmarek"
+              - column:
+                  name: email
+                  value: "pawel.kaczmarek@example.com"
+              - column:
+                  name: role_id
+                  valueNumeric: 4

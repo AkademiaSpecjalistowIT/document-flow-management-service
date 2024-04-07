@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
-      file:
+      file: db/changelog/migrations/2024-04-03-add-users-and-roles-tables.yaml
+  - include:
+      file: db/changelog/migrations/2024-04-03-create-test-users-for-tests.yaml
