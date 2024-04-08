@@ -64,6 +64,7 @@ public class DownloadDocumentDto {
                     pdfDocument.addNewPage();
                 }
                 yCounter += addEventToDocument(modifiableDocument,events.get(i), yCounter, font, lineCounter);
+                lineCounter++;
             }
             modifiableDocument.close();
             pdfDocument.close();
@@ -82,7 +83,7 @@ public class DownloadDocumentDto {
 
     private int addEventToDocument(Document document, DocumentEventEntity event, int yCounter, PdfFont font, int lineCounter) {
         // page size = rectangle 595 (x), 842 (y)
-        // effective x = 486, sign size at font size 14 = 7 -> 69 max signs in line
+        // effective x = 486, sign size at font size 14 = 7 -> 69 max signs in line????
         // effective y = 50 lines pre page
         int x = 54;
         int y = 806 - yCounter * 16;
