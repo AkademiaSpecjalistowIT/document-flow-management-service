@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/migrations/2024-04-03-add-users-and-roles-tables.yaml
   - include:
       file: db/changelog/migrations/2024-04-03-create-test-users-for-tests.yaml
+  - include:
+      file: db/changelog/migrations/2024-04-08-create-document-table.yaml

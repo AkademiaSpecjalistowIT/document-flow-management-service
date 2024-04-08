@@ -1,0 +1,93 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-document-table
+      author: Anastasiia Siutkina
+      changes:
+        - createTable:
+            tableName: documents
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: document_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: creation_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: file
+                  type: blob
+              - column:
+                  name: file_name
+                  type: varchar(255)
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: document_type
+                  type: varchar(255)
+              - column:
+                  name: deadline
+                  type: date
+              - column:
+                  name: state
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: create-event-table
+      author: Anastasiia Siutkina
+      changes:
+        - createTable:
+            tableName: document_events
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: creation_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: issuer
+                  type: varchar(255)
+              - column:
+                  name: event_type
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: event_reason
+                  type: varchar(255)
+              - column:
+                  name: event_description
+                  type: varchar(255)
+              - column:
+                  name: document_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: add-constraints
+      author: Anastasiia Siutkina
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: document_events
+            baseColumnNames: document_id
+            constraintName: fk_document_event_document
+            referencedTableName: documents
+            referencedColumnNames: id

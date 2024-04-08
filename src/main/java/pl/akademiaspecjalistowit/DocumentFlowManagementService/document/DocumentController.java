@@ -22,7 +22,7 @@ class DocumentController {
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<UUID> uploadDocument(@ModelAttribute CombinedDocumentInput input){
+    ResponseEntity<UUID> uploadDocument(@ModelAttribute CombinedDocumentInput input) {
         UUID savedDocumentId = documentService.createDocument(input.getDocumentInput(), input.getEventInput());
         return ResponseEntity.status(HttpStatus.CREATED).body(savedDocumentId);
     }
