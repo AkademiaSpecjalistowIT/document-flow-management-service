@@ -16,7 +16,7 @@ class DocumentController {
     private final DocumentService documentService;
 
     @GetMapping("/all")
-    public List<DocumentResponse> getDocuments(){
+    public List<DocumentResponse> getDocuments() {
         return documentService.getAllDocuments();
     }
 
@@ -28,7 +28,7 @@ class DocumentController {
     }
 
     @GetMapping("/{documentId}")
-    public ResponseEntity<byte[]> downloadDocument(@PathVariable UUID documentId){
+    public ResponseEntity<byte[]> downloadDocument(@PathVariable UUID documentId) {
         DownloadDocumentDto document = documentService.downloadDocument(documentId);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
