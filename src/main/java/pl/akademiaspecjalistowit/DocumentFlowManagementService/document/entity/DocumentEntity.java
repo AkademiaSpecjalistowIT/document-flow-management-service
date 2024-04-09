@@ -16,7 +16,7 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "document")
+@Table(name = "documents")
 public class DocumentEntity {
 
     @Id
