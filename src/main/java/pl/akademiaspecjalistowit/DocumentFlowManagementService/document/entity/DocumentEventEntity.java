@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "document_events")
 public class DocumentEventEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
