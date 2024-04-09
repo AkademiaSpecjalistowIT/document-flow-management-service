@@ -16,19 +16,19 @@ class DocumentController {
     private final DocumentService documentService;
 
     @GetMapping("/all")
-    public List<DocumentResponse> getDocuments(){
+    public List<DocumentResponse> getDocuments() {
         return documentService.getAllDocuments();
     }
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<UUID> uploadDocument(@ModelAttribute CombinedDocumentInput input){
+    ResponseEntity<UUID> uploadDocument(@ModelAttribute CombinedDocumentInput input) {
         UUID savedDocumentId = documentService.createDocument(input.getDocumentInput(), input.getEventInput());
         return ResponseEntity.status(HttpStatus.CREATED).body(savedDocumentId);
     }
 
     @GetMapping("/{documentId}")
-    public ResponseEntity<byte[]> downloadDocument(@PathVariable UUID documentId){
+    public ResponseEntity<byte[]> downloadDocument(@PathVariable UUID documentId) {
         DownloadDocumentDto document = documentService.downloadDocument(documentId);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
