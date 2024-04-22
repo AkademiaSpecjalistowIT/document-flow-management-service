@@ -35,6 +35,28 @@ public class TestData {
         return getTestFileContent("testFile_isPdf.pdf");
     }
 
+    public static byte[] preparedValidEmptyFileForTestDocumentEntity(){ return getTestFileContent("testFile_emptyPDF.pdf");}
+
+    public static DocumentEntity preparedValidDocumentEntityWithEmptyPDF(UUID documentId){
+        List<DocumentEventEntity> events = new ArrayList<>();
+        byte[] file = TestData.preparedValidEmptyFileForTestDocumentEntity();
+        DocumentEntity document = new DocumentEntity(
+                1L,
+                documentId,
+                LocalDate.now(),
+                file,
+                "TestFileName",
+                "TestDescription",
+                "TestDocumentType",
+                LocalDate.of(2030, 6, 10),
+                events,
+                DocumentState.CREATED
+        );
+        DocumentEventEntity event = preparedTestDocumentEvent(document);
+        events.add(event);
+        return document;
+    }
+
     public static DocumentEntity preparedValidDocumentEntity(UUID documentId) {
         List<DocumentEventEntity> events = new ArrayList<>();
         byte[] file = TestData.preparedValidFileForTestDocumentEntity();
