@@ -1,4 +1,4 @@
-package pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception;
+package pl.akademiaspecjalistowit.documentflowmanagementservice.document.exception;
 
 public class DocumentEventAppendingException extends RuntimeException{
     public DocumentEventAppendingException(String message) {

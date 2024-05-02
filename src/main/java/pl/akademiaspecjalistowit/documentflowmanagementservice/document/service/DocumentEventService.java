@@ -1,7 +1,7 @@
-package pl.akademiaspecjalistowit.documentFlowManagementService.document.service;
+package pl.akademiaspecjalistowit.documentflowmanagementservice.document.service;
 
-import pl.akademiaspecjalistowit.documentFlowManagementService.document.dto.DownloadDocumentDto;
-import pl.akademiaspecjalistowit.documentFlowManagementService.document.entity.DocumentEventEntity;
+import pl.akademiaspecjalistowit.documentflowmanagementservice.document.dto.DownloadDocumentDto;
+import pl.akademiaspecjalistowit.documentflowmanagementservice.document.entity.DocumentEventEntity;
 
 import java.util.List;
 

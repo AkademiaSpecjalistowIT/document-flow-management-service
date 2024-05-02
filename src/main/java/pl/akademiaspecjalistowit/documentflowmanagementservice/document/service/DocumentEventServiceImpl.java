@@ -1,4 +1,4 @@
-package pl.akademiaspecjalistowit.documentFlowManagementService.document.service;
+package pl.akademiaspecjalistowit.documentflowmanagementservice.document.service;
 
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -12,9 +12,9 @@ import com.itextpdf.layout.properties.VerticalAlignment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
-import pl.akademiaspecjalistowit.documentFlowManagementService.document.dto.DownloadDocumentDto;
-import pl.akademiaspecjalistowit.documentFlowManagementService.document.entity.DocumentEventEntity;
-import pl.akademiaspecjalistowit.documentFlowManagementService.document.exception.DocumentEventAppendingException;
+import pl.akademiaspecjalistowit.documentflowmanagementservice.document.dto.DownloadDocumentDto;
+import pl.akademiaspecjalistowit.documentflowmanagementservice.document.entity.DocumentEventEntity;
+import pl.akademiaspecjalistowit.documentflowmanagementservice.document.exception.DocumentEventAppendingException;
 
 import java.io.*;
 import java.time.LocalDate;

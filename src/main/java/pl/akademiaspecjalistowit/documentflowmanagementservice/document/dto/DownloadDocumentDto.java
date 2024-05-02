@@ -12,8 +12,8 @@ import com.itextpdf.layout.properties.VerticalAlignment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEventEntity;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentEventAppendingException;
+import pl.akademiaspecjalistowit.documentflowmanagementservice.document.entity.DocumentEventEntity;
+import pl.akademiaspecjalistowit.documentflowmanagementservice.document.exception.DocumentEventAppendingException;
 
 import java.io.*;
 import java.time.LocalDate;

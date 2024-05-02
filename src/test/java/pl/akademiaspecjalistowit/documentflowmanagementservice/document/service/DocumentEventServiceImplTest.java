@@ -1,4 +1,4 @@
-package pl.akademiaspecjalistowit.DocumentFlowManagementService.document.service;
+package pl.akademiaspecjalistowit.documentflowmanagementservice.document.service;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
@@ -7,11 +7,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.TestData;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.dto.DownloadDocumentDto;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.entity.DocumentEntity;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.exception.DocumentEventAppendingException;
-import pl.akademiaspecjalistowit.DocumentFlowManagementService.document.mapper.DocumentMapper;
+import pl.akademiaspecjalistowit.documentflowmanagementservice.document.TestData;
+import pl.akademiaspecjalistowit.documentflowmanagementservice.document.dto.DownloadDocumentDto;
+import pl.akademiaspecjalistowit.documentflowmanagementservice.document.entity.DocumentEntity;
+import pl.akademiaspecjalistowit.documentflowmanagementservice.document.exception.DocumentEventAppendingException;
+import pl.akademiaspecjalistowit.documentflowmanagementservice.document.mapper.DocumentMapper;
 
 import java.io.File;
 import java.io.FileOutputStream;
