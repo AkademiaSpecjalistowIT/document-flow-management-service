@@ -25,6 +25,9 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class DocumentEventServiceImpl implements DocumentEventService{
+    private final int TITLE_FONT_SIZE = 16;
+    private final int FONT_SIZE = 14;
+    private final int LINE_SIZE = 16;
     private final String PDF_SUFFIX = ".pdf";
     private final String MODIFIED_PDF_SUFFIX = "modified.pdf";
     private final int MAX_LINES = 49;
@@ -32,6 +35,8 @@ public class DocumentEventServiceImpl implements DocumentEventService{
     private final int STARTING_X = 54;
     private final int STARTING_Y = 806;
     private final int CHUNK_SIZE = 69;
+    private final int TITLE_X = 36;
+    private final int TITLE_Y = 806;
 
     @Getter
     private class EventTextResult{
@@ -103,11 +108,11 @@ public class DocumentEventServiceImpl implements DocumentEventService{
         // page size = rectangle 595 (x), 842 (y)
         // effective x = 486, sign size at font size 14 = 7 -> 69 max signs in line -> false can be more
         // effective y = 49 lines pre page
-        int y = STARTING_Y - yCounter * 16;
+        int y = STARTING_Y - yCounter * LINE_SIZE;
         Paragraph paragraph = new Paragraph(eventText);
 
         paragraph.setFont(font);
-        paragraph.setFontSize(14);
+        paragraph.setFontSize(FONT_SIZE);
         document.showTextAligned(paragraph, STARTING_X, y, document.getPdfDocument().getNumberOfPages(), TextAlignment.LEFT, VerticalAlignment.TOP, 0);
     }
 
@@ -122,15 +127,14 @@ public class DocumentEventServiceImpl implements DocumentEventService{
             formattedEventText.append(event.getEventDescription(), i, endIndex).append("\n");
         }
         int amountOfAddedLines = (formattedEventText.length() - originalSize) + 2; // \n counter
-        return new EventTextResult(eventText + formattedEventText.toString(), amountOfAddedLines);
+        return new EventTextResult(eventText + formattedEventText, amountOfAddedLines);
     }
-
     private void addTitleAndPage(Document document, PdfFont font) {
         Paragraph title = new Paragraph("Protokół akcji dokumentu na dzień " + LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE))
                 .setFont(font)
-                .setFontSize(16)
+                .setFontSize(TITLE_FONT_SIZE)
                 .setBold();
-        document.showTextAligned(title,36,806, document.getPdfDocument().getNumberOfPages(), TextAlignment.LEFT, VerticalAlignment.TOP, 0);
+        document.showTextAligned(title,TITLE_X,TITLE_Y, document.getPdfDocument().getNumberOfPages(), TextAlignment.LEFT, VerticalAlignment.TOP, 0);
     }
 
     private byte[] convertToByteFieldAndSave(String tempFileName){
