@@ -28,13 +28,7 @@ public class DocumentEventServiceImplTest {
     private final DocumentEventService documentEventService = new DocumentEventServiceImpl();
     private final String TEMP_FILE_NAME = "eventAppendTest.pdf";
 
-    private final String EVENT_TEXT = " Protokół akcji dokumentu na dzień 2024-04-22\n" +
-            "1. Test reason - 2024-04-22 \n" +
-            "Autor akcji: username \n" +
-            "Opis zdarzenia: Test description \n" +
-            "2. Test reason - 2024-04-22 \n" +
-            "Autor akcji: username \n" +
-            "Opis zdarzenia: Test description ";
+    private final String EVENT_TEXT = TestData.prepareAppendedEventText();
 
     @Test
     void happyPath_ShouldAppendEvents(){
@@ -81,7 +75,7 @@ public class DocumentEventServiceImplTest {
     }
 
     private void validateAppendResult(String appendedText){
-        assertEquals(appendedText, EVENT_TEXT);
+        assertEquals(EVENT_TEXT, appendedText);
     }
 
     private void convertAndSaveToPDF(byte[] file){

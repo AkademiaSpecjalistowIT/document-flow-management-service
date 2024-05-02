@@ -116,4 +116,15 @@ public class TestData {
                 "New document created",
                 "A new document has been uploaded to the system");
     }
+
+    public static String prepareAppendedEventText(){
+        String date = LocalDate.now().toString();
+        return " Protokół akcji dokumentu na dzień " + date + "\n" +
+                "1. Test reason - " + date + " \n" +
+                "Autor akcji: username \n" +
+                "Opis zdarzenia: Test description \n" +
+                "2. Test reason - " + date + " \n" +
+                "Autor akcji: username \n" +
+                "Opis zdarzenia: Test description ";
+    }
 }

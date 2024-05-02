@@ -65,23 +65,6 @@ class DocumentServiceImplTest {
         assertEquals(documentId.toString(), exception.getMessage());
     }
 
-    /*@Test
-    void happyPath_downloadDocument_shouldReturnDownloadDocumentDto(){
-        //given
-        UUID documentId = UUID.randomUUID();
-        DocumentEntity documentEntity = TestData.preparedValidDocumentEntity(documentId);
-        when(documentDataService.getDocument(documentId)).thenReturn(Optional.of(documentEntity));
-        //when
-        DownloadDocumentDto downloadDocumentDto = documentService.downloadDocument(documentId);
-        //then
-        verifyDownloadDocumentDto(downloadDocumentDto, documentEntity);
-    }
-
-    private void verifyDownloadDocumentDto(DownloadDocumentDto downloadDocumentDto, DocumentEntity documentEntity){
-        assertEquals(downloadDocumentDto.getFile(), documentEntity.getFile());
-        assertNotEquals(downloadDocumentDto.getFileName(), documentEntity.getFileName());
-    }*/
-
 }
 
 
