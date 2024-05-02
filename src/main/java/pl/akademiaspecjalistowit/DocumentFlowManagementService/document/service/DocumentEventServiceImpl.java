@@ -25,10 +25,13 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class DocumentEventServiceImpl implements DocumentEventService{
-    private static final String PDF_SUFFIX = ".pdf";
-    private static final String MODIFIED_PDF_SUFFIX = "modified.pdf";
-    private static final int MAX_LINES = 49;
-    private static final String FONTS_TIMES_TTF = "src/main/resources/fonts/times.ttf";
+    private final String PDF_SUFFIX = ".pdf";
+    private final String MODIFIED_PDF_SUFFIX = "modified.pdf";
+    private final int MAX_LINES = 49;
+    private final String FONTS_TIMES_TTF = "src/main/resources/fonts/times.ttf";
+    private final int STARTING_X = 54;
+    private final int STARTING_Y = 806;
+    private final int CHUNK_SIZE = 69;
 
     @Getter
     private class EventTextResult{
@@ -100,13 +103,12 @@ public class DocumentEventServiceImpl implements DocumentEventService{
         // page size = rectangle 595 (x), 842 (y)
         // effective x = 486, sign size at font size 14 = 7 -> 69 max signs in line -> false can be more
         // effective y = 49 lines pre page
-        int x = 54;
-        int y = 806 - yCounter * 16;
+        int y = STARTING_Y - yCounter * 16;
         Paragraph paragraph = new Paragraph(eventText);
 
         paragraph.setFont(font);
         paragraph.setFontSize(14);
-        document.showTextAligned(paragraph, x, y, document.getPdfDocument().getNumberOfPages(), TextAlignment.LEFT, VerticalAlignment.TOP, 0);
+        document.showTextAligned(paragraph, STARTING_X, y, document.getPdfDocument().getNumberOfPages(), TextAlignment.LEFT, VerticalAlignment.TOP, 0);
     }
 
     private EventTextResult createEventText(DocumentEventEntity event, int eventCounter){
@@ -114,7 +116,6 @@ public class DocumentEventServiceImpl implements DocumentEventService{
         eventText += "\nAutor akcji: " + event.getIssuer();
         eventText += "\nOpis zdarzenia: ";
         int originalSize = event.getEventDescription().length();
-        final int CHUNK_SIZE = 69;
         StringBuilder formattedEventText = new StringBuilder();
         for (int i = 0; i < event.getEventDescription().length(); i += CHUNK_SIZE) {
             int endIndex = Math.min(i + CHUNK_SIZE, event.getEventDescription().length());
