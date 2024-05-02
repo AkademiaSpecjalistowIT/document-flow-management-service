@@ -25,6 +25,7 @@ import static pl.akademiaspecjalistowit.documentflowmanagementservice.document.e
 @AllArgsConstructor
 class DocumentServiceImpl implements DocumentService {
     private final DocumentDataService documentDataService;
+    private final DocumentEventService documentEventService;
 
     @Override
     public List<DocumentResponse> getAllDocuments() {
@@ -39,7 +40,9 @@ class DocumentServiceImpl implements DocumentService {
         DocumentEntity document = documentDataService.getDocument(documentId).orElseThrow(
                 () -> new DocumentNotFoundException(documentId.toString())
         );
-        return DocumentMapper.downloadDtoFromEntity(document);
+        DownloadDocumentDto DocumentDto = DocumentMapper.downloadDtoFromEntity(document);
+        DocumentDto = documentEventService.appendEventsToPDF(DocumentDto, document.getEvents());
+        return DocumentDto;
     }
 
     @Override

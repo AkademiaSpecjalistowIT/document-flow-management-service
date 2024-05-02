@@ -1,5 +1,6 @@
 package pl.akademiaspecjalistowit.documentflowmanagementservice.document.mapper;
 
+
 import pl.akademiaspecjalistowit.documentflowmanagementservice.document.dto.DownloadDocumentDto;
 import pl.akademiaspecjalistowit.documentflowmanagementservice.document.dto.DocumentResponse;
 import pl.akademiaspecjalistowit.documentflowmanagementservice.document.entity.DocumentEntity;
@@ -24,5 +25,4 @@ public class DocumentMapper {
                 document.getFileName()
         );
     }
-
 }
